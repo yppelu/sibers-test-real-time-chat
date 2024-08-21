@@ -1,0 +1,135 @@
+.room-window {
+  display: grid;
+  grid-template-areas:
+    "users header header"
+    "users messages messages"
+    "users send-message send-message";
+  grid-template-columns: 30% 70%;
+  grid-template-rows: 4rem 1fr 3rem;
+
+  height: 100%;
+}
+
+.room-window__header {
+  border-left: 1px solid var(--dark-color-1);
+  border-right: 1px solid var(--dark-color-1);
+
+  grid-area: header;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 1rem;
+}
+
+.room-window__room-info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  height: 75%;
+}
+
+.room-window__room-name {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.room-window__number-of-users-in-room {
+  color: var(--light-color-2);
+  font-size: 0.95rem;
+}
+
+.room-window__leave-chat-button {
+  appearance: none;
+  background-color: var(--red-color);
+  border: none;
+  border-radius: 0.25rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 0.75rem;
+  height: 55%;
+}
+
+.room-window__users {
+  grid-area: users;
+
+  padding: 0 1rem;
+}
+
+.room-window__search-for-user-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 4rem;
+}
+
+.room-window__username-to-search-input {
+  appearance: none;
+  background-color: var(--dark-color-3);
+  border: none;
+  border-radius: 1rem;
+  outline: none;
+
+  padding: 0 1rem;
+  height: 55%;
+  width: 90%;
+}
+
+.room-window__list-of-users-item {
+  padding: 0.5rem 0.5rem;
+}
+
+.room-window__list-of-users-item:not(:last-of-type) {
+  border-bottom: 1px solid var(--dark-color-3);
+}
+
+.room-window__messages-container {
+  background-color: var(--dark-color-1);
+  grid-area: messages;
+}
+
+.room-window__message-form {
+  border-left: 1px solid var(--dark-color-1);
+  border-right: 1px solid var(--dark-color-1);
+  grid-area: send-message;
+
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  padding-right: 1rem;
+}
+
+.room-window__message-input {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  outline: none;
+
+  padding-left: 1rem;
+  height: 100%;
+  width: 100%;
+}
+
+.room-window__send-message-button {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+
+  height: 65%;
+}
+
+.room-window__send-message-icon {
+  height: 100%;
+  fill: var(--accent-color-3);
+}
+
+.room-window__send-message-button:disabled .room-window__send-message-icon {
+  fill: var(--accent-color-2);
+}

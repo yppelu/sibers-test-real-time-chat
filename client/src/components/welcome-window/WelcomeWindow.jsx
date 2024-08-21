@@ -5,7 +5,7 @@ import ChooseRoomForm from './ChooseRoomForm.jsx';
 export default function WelcomeWindow() {
   return (
     <div className="welcome-window">
-      <ChooseRoomForm />
+      <CreateUserForm />
     </div>
   );
 }
