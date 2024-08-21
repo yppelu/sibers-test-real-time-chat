@@ -1,0 +1,38 @@
+.welcome-window__title {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.welcome-window__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  width: 100%;
+}
+
+.welcome-window__input {
+  appearance: none;
+  background-color: var(--dark-color-2);
+  border: 1px solid var(--light-color-3);
+  border-radius: 0.25rem;
+
+  padding: 0.25rem 0.5rem;
+}
+
+.welcome-window__submit-button {
+  appearance: none;
+  background-color: var(--accent-color-2);
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.1s;
+
+  align-self: flex-start;
+
+  padding: 0.35rem 1.05rem;
+}
+
+.welcome-window__submit-button:active {
+  background-color: var(--accent-color-3);
+}
