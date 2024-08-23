@@ -1,7 +1,7 @@
 module.exports = class User {
   static _users = [];
 
-  static addUser(user) {
+  static saveUser(user) {
     this._users.push(user);
   }
 
@@ -9,39 +9,28 @@ module.exports = class User {
     this._users = this._users.filter(user => user.id !== userId);
   }
 
-  static getUsernameById(userId) {
+  static getUserById(userId) {
+    return this._users.find(user => user.id === userId);
+  }
+
+  static getUserByName(username) {
+    return this._users.find(user => user.username === username);
+  }
+
+  static updateUser(userId, newData) {
     const user = this._users.find(user => user.id === userId);
-    return user.username;
+    for (const key in newData) {
+      user[key] = newData[key];
+    }
+  }
+
+  static getUsersInRoom(roomName) {
+    return this._users.filter(user => user.room = roomName);
   }
 
   constructor(id, username, room = '') {
-    this._id = id;
-    this._username = username;
-    this._room = room;
-    User.addUser(this);
-  }
-
-  get id() {
-    return this._id;
-  }
-
-  set id(id) {
-    this._id = id;
-  }
-
-  get username() {
-    return this._username;
-  }
-
-  set username(username) {
-    this._username = username;
-  }
-
-  get room() {
-    return this._room;
-  }
-
-  set room(room) {
-    this._room = room;
+    this.id = id;
+    this.username = username;
+    this.room = room;
   }
 };
