@@ -33,7 +33,7 @@ export default function RoomWindow({ socket, roomName }) {
       <UsersList usersInRoom={usersInRoom} />
       <div className="room-window__messages-container"></div>
       <form className="room-window__message-form">
-        <input autoFocus className="room-window__message-input" type="text" name="message" placeholder="Enter a message..." />
+        <input className="room-window__message-input" type="text" name="message" placeholder="Enter a message..." autoFocus />
         <button className="room-window__send-message-button" type="submit">
           <svg className="room-window__send-message-icon" viewBox="0 0 24 24">
             <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />

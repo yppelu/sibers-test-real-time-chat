@@ -12,7 +12,7 @@ export default function ChooseRoomForm({ username, joinRoom }) {
           joinRoom(roomName);
         }}
       >
-        <input className="welcome-window__input" type="text" name="room-name" required />
+        <input className="welcome-window__input" type="text" name="room-name" required autoFocus />
         <button
           className="welcome-window__submit-button"
           type="submit"

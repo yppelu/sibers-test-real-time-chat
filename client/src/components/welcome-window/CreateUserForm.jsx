@@ -12,7 +12,7 @@ export default function CreateUserForm({ submitUsername }) {
           submitUsername(username);
         }}
       >
-        <input className="welcome-window__input" type="text" name="username" required />
+        <input className="welcome-window__input" type="text" name="username" required autoFocus />
         <button className="welcome-window__submit-button" type="submit">Create</button>
       </form>
     </>
