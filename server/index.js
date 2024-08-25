@@ -23,15 +23,33 @@ io.on('connection', (socket) => {
     socket.join(roomName);
 
     const usersInRoom = User.getUsersInRoom(roomName);
+    const isUserAdmin = usersInRoom.length === 1;
+    if (isUserAdmin) {
+      User.updateUser(userId, { role: 'admin' });
+    } else {
+      User.updateUser(userId, { role: 'user' });
+    }
+
+    socket.emit('isUserAdmin', isUserAdmin);
+
     io.in(roomName).emit('getUsersInRoom', usersInRoom);
   });
 
   socket.on('leaveRoom', (userId, roomName) => {
-    User.updateUser(userId, { room: '' });
+    User.updateUser(userId, { room: '', role: '' });
     socket.leave(roomName);
 
     const usersInRoom = User.getUsersInRoom(roomName);
     socket.broadcast.to(roomName).emit('getUsersInRoom', usersInRoom);
+  });
+
+  socket.on('removeUser', (userId, roomName) => {
+    User.updateUser(userId, { room: '', role: '' });
+    io.in(userId).socketsLeave(roomName);
+    io.in(userId).emit('userWasRemoved', userId);
+
+    const usersInRoom = User.getUsersInRoom(roomName);
+    io.in(roomName).emit('getUsersInRoom', usersInRoom);
   });
 
   socket.on('sendMessage', (messageText, roomName) => {
@@ -44,6 +62,8 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
+    if (!User.getUserById(socket.id)) return;
+
     const roomUserWasIn = User.getUserById(socket.id).room;
     User.removeUserById(socket.id);
 

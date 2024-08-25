@@ -11,6 +11,7 @@ import Messages from './Messages.jsx';
 export default function RoomWindow({ roomName, leaveRoom }) {
   const socket = useContext(SocketContext);
   const [usersInRoom, setUsersInRoom] = useState([]);
+  const [isCurrentUserAdmin, setIsCurrentUserAdmin] = useState(false);
 
   useEffect(() => {
     const onGetUsersInRoom = (newUsersInRoom) => {
@@ -18,6 +19,9 @@ export default function RoomWindow({ roomName, leaveRoom }) {
     };
 
     socket.on('getUsersInRoom', onGetUsersInRoom);
+    socket.once('isUserAdmin', (isAdmin) => {
+      setIsCurrentUserAdmin(isAdmin);
+    });
 
     return () => {
       socket.off('getUsersInRoom', onGetUsersInRoom);
@@ -27,7 +31,7 @@ export default function RoomWindow({ roomName, leaveRoom }) {
   return (
     <div className="room-window">
       <Header roomName={roomName} numberOfUsersInRoom={usersInRoom.length} leaveRoom={leaveRoom} />
-      <UsersList usersInRoom={usersInRoom} />
+      <UsersList usersInRoom={usersInRoom} isCurrentUserAdmin={isCurrentUserAdmin} />
       <Messages roomName={roomName} />
     </div >
   );

@@ -28,9 +28,10 @@ module.exports = class User {
     return this._users.filter(user => user.room === roomName);
   }
 
-  constructor(id, username, room = '') {
+  constructor(id, username) {
     this.id = id;
     this.username = username;
-    this.room = room;
+    this.room = '';
+    this.role = '';
   }
 };

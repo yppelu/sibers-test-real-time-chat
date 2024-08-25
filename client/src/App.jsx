@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { socket, SocketContext } from './helpers/socket.js';
 
 import RoomWindow from './components/room-window/RoomWindow.jsx';
@@ -7,6 +7,21 @@ import WelcomeWindow from './components/welcome-window/WelcomeWindow.jsx';
 export default function App() {
   const [isInRoom, setIsInRoom] = useState(false);
   const [roomName, setRoomName] = useState(null);
+
+  useEffect(() => {
+    const onUserWasRemoved = (userId) => {
+      if (userId === socket.id) {
+        setRoomName('');
+        setIsInRoom(false);
+      }
+    };
+
+    socket.on('userWasRemoved', onUserWasRemoved);
+
+    return () => {
+      socket.off('userWasRemoved', onUserWasRemoved);
+    };
+  }, []);
 
   function handleJoinRoom(newRoomName) {
     socket.emit('joinRoom', socket.id, newRoomName);

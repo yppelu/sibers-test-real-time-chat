@@ -82,11 +82,22 @@
 }
 
 .room-window__list-of-users-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
   padding: 0.5rem 0.5rem;
 }
 
 .room-window__list-of-users-item:not(:last-of-type) {
   border-bottom: 1px solid var(--dark-color-3);
+}
+
+.room-window__remove-user-button {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  color: var(--red-color);
 }
 
 .room-window__messages-container {

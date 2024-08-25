@@ -1,7 +1,10 @@
 import { PropTypes } from 'prop-types';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
-export default function UsersList({ usersInRoom }) {
+import { SocketContext } from '../../helpers/socket.js';
+
+export default function UsersList({ usersInRoom, isCurrentUserAdmin }) {
+  const socket = useContext(SocketContext);
   const [searchInputValue, setSearchInputValue] = useState('');
 
   return (
@@ -24,7 +27,18 @@ export default function UsersList({ usersInRoom }) {
             .filter(user => user.username.toLowerCase().includes(searchInputValue.toLowerCase()))
             .map(user => (
               <li key={user.id} className="room-window__list-of-users-item">
-                {user.username}
+                <p>{user.username}</p>
+                {isCurrentUserAdmin && user.id !== socket.id &&
+                  <button
+                    type="button"
+                    className="room-window__remove-user-button"
+                    onClick={() => {
+                      socket.emit('removeUser', user.id, user.room);
+                    }}
+                  >
+                    🞪
+                  </button>
+                }
               </li>
             ))
         }
@@ -34,5 +48,6 @@ export default function UsersList({ usersInRoom }) {
 }
 
 UsersList.propTypes = {
-  usersInRoom: PropTypes.array
+  usersInRoom: PropTypes.array,
+  isCurrentUserAdmin: PropTypes.bool
 };
