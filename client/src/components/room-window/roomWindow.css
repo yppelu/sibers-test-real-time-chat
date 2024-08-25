@@ -4,7 +4,7 @@
     "users header header"
     "users messages messages"
     "users send-message send-message";
-  grid-template-columns: 30% 1fr;
+  grid-template-columns: 300px 1fr;
   grid-template-rows: 4rem calc(100vh - 7rem) 3rem;
 
   height: 100%;
