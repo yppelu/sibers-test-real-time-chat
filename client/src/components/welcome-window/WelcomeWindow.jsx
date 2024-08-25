@@ -37,10 +37,11 @@ export default function WelcomeWindow({ joinRoom }) {
   }
 
   return (
-    <div className="welcome-window">
-      {step === 1 && <CreateUserForm submitUsername={handleSubmitUsername} />}
-      {step === 2 && <ChooseRoomForm username={username} joinRoom={joinRoom} />}
-    </div>
+    step === 0 ? null :
+      <div className="welcome-window">
+        {step === 1 && <CreateUserForm submitUsername={handleSubmitUsername} />}
+        {step === 2 && <ChooseRoomForm username={username} joinRoom={joinRoom} />}
+      </div>
   );
 }
 
