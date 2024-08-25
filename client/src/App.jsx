@@ -13,6 +13,7 @@ export default function App() {
       if (userId === socket.id) {
         setRoomName('');
         setIsInRoom(false);
+        alert('You have been removed from the chat by chat Admin.');
       }
     };
 
