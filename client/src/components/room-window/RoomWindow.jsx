@@ -7,6 +7,7 @@ import { SocketContext } from '../../helpers/socket.js';
 import UsersList from './UsersList.jsx';
 import Header from './Header.jsx';
 import Messages from './Messages.jsx';
+import MessageForm from './MessageForm.jsx';
 
 export default function RoomWindow({ roomName, leaveRoom }) {
   const socket = useContext(SocketContext);
@@ -32,7 +33,8 @@ export default function RoomWindow({ roomName, leaveRoom }) {
     <div className="room-window">
       <Header roomName={roomName} numberOfUsersInRoom={usersInRoom.length} leaveRoom={leaveRoom} />
       <UsersList usersInRoom={usersInRoom} isCurrentUserAdmin={isCurrentUserAdmin} />
-      <Messages roomName={roomName} />
+      <Messages />
+      <MessageForm roomName={roomName} />
     </div >
   );
 }

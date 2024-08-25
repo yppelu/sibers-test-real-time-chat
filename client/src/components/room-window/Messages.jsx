@@ -3,9 +3,9 @@ import { useContext, useEffect, useState } from 'react';
 
 import { SocketContext } from '../../helpers/socket.js';
 
-export default function Messages({ roomName }) {
+export default function Messages() {
   const socket = useContext(SocketContext);
-  const [messageText, setMessageText] = useState('');
+
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function Messages({ roomName }) {
         {
           messages.map(message => (
             <div
-              key={message.userId}
+              key={message.messageId}
               className={
                 message.userId === socket.id
                   ? 'room-window__message room-window__message--own'
@@ -44,31 +44,6 @@ export default function Messages({ roomName }) {
           ))
         }
       </div>
-      <form
-        className="room-window__message-form"
-        onSubmit={(event) => {
-          event.preventDefault();
-          socket.emit('sendMessage', messageText, roomName);
-          setMessageText('');
-        }}
-      >
-        <input
-          className="room-window__message-input"
-          type="text"
-          name="message"
-          placeholder="Enter a message..."
-          autoFocus
-          value={messageText}
-          onChange={(event) => {
-            setMessageText(event.target.value);
-          }}
-        />
-        <button className="room-window__send-message-button" type="submit">
-          <svg className="room-window__send-message-icon" viewBox="0 0 24 24">
-            <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />
-          </svg>
-        </button>
-      </form>
     </>
   );
 }

@@ -54,6 +54,7 @@ io.on('connection', (socket) => {
 
   socket.on('sendMessage', (messageText, roomName) => {
     const message = {
+      messageId: `${Date.now()}${socket.id}`,
       userId: socket.id,
       username: User.getUserById(socket.id).username,
       text: messageText
