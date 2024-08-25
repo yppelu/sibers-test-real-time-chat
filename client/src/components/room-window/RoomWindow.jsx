@@ -14,6 +14,9 @@ export default function RoomWindow({ roomName, leaveRoom }) {
   const [usersInRoom, setUsersInRoom] = useState([]);
   const [isCurrentUserAdmin, setIsCurrentUserAdmin] = useState(false);
 
+  const [isMenuAboutToBeHidden, setIsMenuAboutToBeHidden] = useState(false);
+  const [isMenuHidden, setIsMenuHidden] = useState(window.innerWidth < 786);
+
   useEffect(() => {
     const onGetUsersInRoom = (newUsersInRoom) => {
       setUsersInRoom(newUsersInRoom);
@@ -29,10 +32,27 @@ export default function RoomWindow({ roomName, leaveRoom }) {
     };
   }, []);
 
+  function handleHideMenu() {
+    setIsMenuAboutToBeHidden(true);
+    setTimeout(() => setIsMenuHidden(true), 200);
+  }
+
+  function handleShowMenu() {
+    setIsMenuAboutToBeHidden(false);
+    setIsMenuHidden(false);
+  }
+
   return (
     <div className="room-window">
-      <Header roomName={roomName} numberOfUsersInRoom={usersInRoom.length} leaveRoom={leaveRoom} />
-      <UsersList usersInRoom={usersInRoom} isCurrentUserAdmin={isCurrentUserAdmin} />
+      <Header showMenu={handleShowMenu} roomName={roomName} numberOfUsersInRoom={usersInRoom.length} leaveRoom={leaveRoom} />
+      {isMenuHidden ? null :
+        <UsersList
+          hideMenu={handleHideMenu}
+          isMenuAboutToBeHidden={isMenuAboutToBeHidden}
+          usersInRoom={usersInRoom}
+          isCurrentUserAdmin={isCurrentUserAdmin}
+        />
+      }
       <Messages />
       <MessageForm roomName={roomName} />
     </div >

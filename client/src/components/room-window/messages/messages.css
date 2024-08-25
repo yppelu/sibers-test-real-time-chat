@@ -1,7 +1,7 @@
 .room-window__messages-container {
   background-color: var(--dark-color-1);
   grid-area: messages;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   display: flex;
   flex-direction: column;

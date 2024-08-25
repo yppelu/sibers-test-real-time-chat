@@ -4,25 +4,40 @@ import { PropTypes } from 'prop-types';
 import { useContext, useState } from 'react';
 
 import { SocketContext } from '../../../helpers/socket.js';
+import ShowHideMenuButton from '../show-hide-menu-button/ShowHideMenuButton.jsx';
 
-export default function UsersList({ usersInRoom, isCurrentUserAdmin }) {
+export default function UsersList({ isMenuAboutToBeHidden, hideMenu, usersInRoom, isCurrentUserAdmin }) {
   const socket = useContext(SocketContext);
   const [searchInputValue, setSearchInputValue] = useState('');
 
   return (
-    <div className="room-window__users">
-      <form className="room-window__search-for-user-form">
-        <input
-          className="room-window__username-to-search-input"
-          type="text"
-          name="username"
-          placeholder="Search for a user"
-          value={searchInputValue}
-          onChange={(event) => {
-            setSearchInputValue(event.target.value);
+    <div
+      className={
+        isMenuAboutToBeHidden
+          ? 'room-window__users room-window__users--hidden'
+          : 'room-window__users '
+      }
+    >
+      <div className="room-window__users-header">
+        <form
+          className="room-window__search-for-user-form"
+          onSubmit={(event) => {
+            event.preventDefault();
           }}
-        />
-      </form>
+        >
+          <input
+            className="room-window__username-to-search-input"
+            type="text"
+            name="username"
+            placeholder="Search for a user"
+            value={searchInputValue}
+            onChange={(event) => {
+              setSearchInputValue(event.target.value);
+            }}
+          />
+        </form>
+        <ShowHideMenuButton action={hideMenu} />
+      </div>
       <ul>
         {
           usersInRoom
@@ -50,6 +65,9 @@ export default function UsersList({ usersInRoom, isCurrentUserAdmin }) {
 }
 
 UsersList.propTypes = {
+  isMenuHidden: PropTypes.bool,
+  isMenuAboutToBeHidden: PropTypes.bool,
+  hideMenu: PropTypes.func,
   usersInRoom: PropTypes.array,
   isCurrentUserAdmin: PropTypes.bool
 };

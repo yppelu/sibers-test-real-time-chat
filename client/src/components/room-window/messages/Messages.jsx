@@ -7,7 +7,6 @@ import { SocketContext } from '../../../helpers/socket.js';
 
 export default function Messages() {
   const socket = useContext(SocketContext);
-
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -24,7 +23,7 @@ export default function Messages() {
     return () => {
       socket.off('receiveMessage', onReceiveMessage);
     };
-  });
+  }, []);
 
   return (
     <>

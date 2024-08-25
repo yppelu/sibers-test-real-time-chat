@@ -1,0 +1,20 @@
+.show-hide-menu-button {
+  appearance: none;
+  background: transparent;
+  border: none;
+
+  display: none;
+
+  aspect-ratio: 1 / 1;
+  width: 2rem;
+}
+
+.show-hide-menu-icon {
+  fill: var(--light-color-1);
+}
+
+@media screen and (max-width: 767px) {
+  .show-hide-menu-button {
+    display: inline-block;
+  }
+}
