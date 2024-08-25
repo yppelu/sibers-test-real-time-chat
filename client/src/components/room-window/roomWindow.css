@@ -5,7 +5,7 @@
     "users messages messages"
     "users send-message send-message";
   grid-template-columns: 30% 70%;
-  grid-template-rows: 4rem 1fr 3rem;
+  grid-template-rows: 4rem calc(100vh - 7rem) 3rem;
 
   height: 100%;
 }
@@ -92,6 +92,44 @@
 .room-window__messages-container {
   background-color: var(--dark-color-1);
   grid-area: messages;
+  overflow-y: scroll;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  padding: 1rem;
+}
+
+.room-window__message {
+  background-color: var(--dark-color-2);
+  border-radius: 0.5rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  padding: 0.5rem 1rem;
+  max-width: 70%;
+  width: max-content;
+}
+
+.room-window__message--own {
+  background-color: var(--accent-color-2);
+
+  align-self: flex-end;
+}
+
+.room-window__message-username {
+  text-decoration: underline;
+}
+
+.room-window__message-date {
+  color: var(--light-color-3);
+  font-size: 0.9rem;
+  font-style: italic;
+
+  align-self: flex-end;
 }
 
 .room-window__message-form {

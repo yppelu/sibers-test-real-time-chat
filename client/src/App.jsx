@@ -12,12 +12,10 @@ export default function App() {
     socket.emit('joinRoom', socket.id, newRoomName);
     setRoomName(newRoomName);
     setIsInRoom(true);
-    socket.emit('getUsersInRoom', newRoomName);
   }
 
   function handleLeaveRoom() {
     socket.emit('leaveRoom', socket.id, roomName);
-    socket.emit('getUsersInRoom', roomName);
     setRoomName('');
     setIsInRoom(false);
   }

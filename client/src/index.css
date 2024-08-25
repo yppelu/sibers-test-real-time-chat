@@ -56,7 +56,7 @@ h6 {
 }
 
 :root {
-  --accent-color-1: #8CB987;
+  --accent-color-1: #FAA357;
   --accent-color-2: #2B5278;
   --accent-color-3: #2E70A5;
   --dark-color-1: #0E1621;
@@ -64,6 +64,7 @@ h6 {
   --dark-color-3: #242F3D;
   --light-color-1: #FFFFFF;
   --light-color-2: #6C7883;
+  --light-color-3: #AAB5BE;
   --red-color: #AF3940;
 }
 

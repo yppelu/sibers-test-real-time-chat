@@ -21,20 +21,33 @@ io.on('connection', (socket) => {
   socket.on('joinRoom', (userId, roomName) => {
     User.updateUser(userId, { room: roomName });
     socket.join(roomName);
+
+    const usersInRoom = User.getUsersInRoom(roomName);
+    io.in(roomName).emit('getUsersInRoom', usersInRoom);
   });
 
   socket.on('leaveRoom', (userId, roomName) => {
     User.updateUser(userId, { room: '' });
     socket.leave(roomName);
-  });
 
-  socket.on('getUsersInRoom', (roomName) => {
     const usersInRoom = User.getUsersInRoom(roomName);
-    socket.emit('getUsersInRoom', usersInRoom);
     socket.broadcast.to(roomName).emit('getUsersInRoom', usersInRoom);
   });
 
-  socket.on('disconnect', (userId) => {
-    User.removeUserById(userId);
+  socket.on('sendMessage', (messageText, roomName) => {
+    const message = {
+      userId: socket.id,
+      username: User.getUserById(socket.id).username,
+      text: messageText
+    };
+    io.in(roomName).emit('receiveMessage', message);
+  });
+
+  socket.on('disconnect', () => {
+    const roomUserWasIn = User.getUserById(socket.id).room;
+    User.removeUserById(socket.id);
+
+    const usersInRoom = User.getUsersInRoom(roomUserWasIn);
+    socket.broadcast.to(roomUserWasIn).emit('getUsersInRoom', usersInRoom);
   });
 });

@@ -9,7 +9,7 @@ import ChooseRoomForm from './ChooseRoomForm.jsx';
 
 export default function WelcomeWindow({ joinRoom }) {
   const socket = useContext(SocketContext);
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
   const [username, setUsername] = useState('');
 
   useEffect(() => {
@@ -17,6 +17,8 @@ export default function WelcomeWindow({ joinRoom }) {
       if (user) {
         setUsername(user.username);
         setStep(2);
+      } else {
+        setStep(1);
       }
     };
 
@@ -26,7 +28,7 @@ export default function WelcomeWindow({ joinRoom }) {
     return () => {
       socket.off('getUserById', onGetUserById);
     };
-  }, [socket]);
+  }, []);
 
   function handleSubmitUsername(username) {
     socket.emit('createUser', socket.id, username);
