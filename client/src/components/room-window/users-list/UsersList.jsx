@@ -3,7 +3,7 @@ import './usersList.css';
 import { PropTypes } from 'prop-types';
 import { useContext, useState } from 'react';
 
-import { SocketContext } from '../../../helpers/socket.js';
+import { SocketContext } from '../../../socket.js';
 import ShowHideMenuButton from '../show-hide-menu-button/ShowHideMenuButton.jsx';
 
 export default function UsersList({ isMenuAboutToBeHidden, hideMenu, usersInRoom, isCurrentUserAdmin }) {

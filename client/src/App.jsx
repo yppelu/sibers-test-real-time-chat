@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { socket, SocketContext } from './helpers/socket.js';
+import { socket, SocketContext } from './socket.js';
 
 import RoomWindow from './components/room-window/RoomWindow.jsx';
 import WelcomeWindow from './components/welcome-window/WelcomeWindow.jsx';
@@ -13,7 +13,7 @@ export default function App() {
       if (userId === socket.id) {
         setRoomName('');
         setIsInRoom(false);
-        alert('You have been removed from the chat by chat Admin.');
+        alert('You have been removed from the chat by the admin.');
       }
     };
 

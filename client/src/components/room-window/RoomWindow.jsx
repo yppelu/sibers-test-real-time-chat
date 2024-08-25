@@ -2,7 +2,7 @@ import './roomWindow.css';
 
 import { PropTypes } from 'prop-types';
 import { useContext, useEffect, useState } from 'react';
-import { SocketContext } from '../../helpers/socket.js';
+import { SocketContext } from '../../socket.js';
 
 import UsersList from './users-list/UsersList.jsx';
 import Header from './header/Header.jsx';

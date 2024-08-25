@@ -2,7 +2,7 @@ import './welcomeWindow.css';
 
 import { PropTypes } from 'prop-types';
 import { useContext, useEffect, useState } from 'react';
-import { SocketContext } from '../../helpers/socket.js';
+import { SocketContext } from '../../socket.js';
 
 import CreateUserForm from './CreateUserForm.jsx';
 import ChooseRoomForm from './ChooseRoomForm.jsx';

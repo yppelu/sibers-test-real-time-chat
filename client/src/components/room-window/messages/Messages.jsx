@@ -3,7 +3,7 @@ import './messages.css';
 import { PropTypes } from 'prop-types';
 import { useContext, useEffect, useState } from 'react';
 
-import { SocketContext } from '../../../helpers/socket.js';
+import { SocketContext } from '../../../socket.js';
 
 export default function Messages() {
   const socket = useContext(SocketContext);
