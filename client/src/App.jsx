@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import socket from './helpers/socket.js';
+import { socket, SocketContext } from './helpers/socket.js';
 
 import RoomWindow from './components/room-window/RoomWindow.jsx';
 import WelcomeWindow from './components/welcome-window/WelcomeWindow.jsx';
@@ -8,19 +8,29 @@ export default function App() {
   const [isInRoom, setIsInRoom] = useState(false);
   const [roomName, setRoomName] = useState(null);
 
-  function joinRoom(newRoomName) {
+  function handleJoinRoom(newRoomName) {
     socket.emit('joinRoom', socket.id, newRoomName);
     setRoomName(newRoomName);
     setIsInRoom(true);
+    socket.emit('getUsersInRoom', newRoomName);
+  }
+
+  function handleLeaveRoom() {
+    socket.emit('leaveRoom', socket.id, roomName);
+    socket.emit('getUsersInRoom', roomName);
+    setRoomName('');
+    setIsInRoom(false);
   }
 
   return (
-    <main className="main">
-      {
-        isInRoom
-          ? <RoomWindow socket={socket} roomName={roomName} />
-          : <WelcomeWindow socket={socket} joinRoom={joinRoom} />
-      }
-    </main >
+    <SocketContext.Provider value={socket} >
+      <main className="main">
+        {
+          isInRoom
+            ? <RoomWindow roomName={roomName} leaveRoom={handleLeaveRoom} />
+            : <WelcomeWindow joinRoom={handleJoinRoom} />
+        }
+      </main >
+    </SocketContext.Provider>
   );
 }

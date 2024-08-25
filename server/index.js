@@ -13,15 +13,25 @@ io.on('connection', (socket) => {
     User.saveUser(newUser);
   });
 
+  socket.on('getUserById', (userId) => {
+    const user = User.getUserById(userId);
+    socket.emit('getUserById', user);
+  });
+
   socket.on('joinRoom', (userId, roomName) => {
-    socket.join(roomName);
     User.updateUser(userId, { room: roomName });
+    socket.join(roomName);
+  });
+
+  socket.on('leaveRoom', (userId, roomName) => {
+    User.updateUser(userId, { room: '' });
+    socket.leave(roomName);
   });
 
   socket.on('getUsersInRoom', (roomName) => {
     const usersInRoom = User.getUsersInRoom(roomName);
     socket.emit('getUsersInRoom', usersInRoom);
-    socket.to(roomName).emit('getUsersInRoom', usersInRoom);
+    socket.broadcast.to(roomName).emit('getUsersInRoom', usersInRoom);
   });
 
   socket.on('disconnect', (userId) => {

@@ -1,11 +1,14 @@
 import './roomWindow.css';
 
-import { useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
+import { useContext, useEffect, useState } from 'react';
+import { SocketContext } from '../../helpers/socket.js';
 
 import UsersList from './UsersList.jsx';
+import Header from './Header.jsx';
 
-export default function RoomWindow({ socket, roomName }) {
+export default function RoomWindow({ roomName, leaveRoom }) {
+  const socket = useContext(SocketContext);
   const [usersInRoom, setUsersInRoom] = useState([]);
 
   useEffect(() => {
@@ -15,21 +18,14 @@ export default function RoomWindow({ socket, roomName }) {
 
     socket.on('getUsersInRoom', onGetUsersInRoom);
 
-    socket.emit('getUsersInRoom', roomName);
     return () => {
       socket.off('getUsersInRoom', onGetUsersInRoom);
     };
-  }, [roomName, socket]);
+  });
 
   return (
     <div className="room-window">
-      <div className="room-window__header">
-        <div className="room-window__room-info-container">
-          <h2 className="room-window__room-name">{roomName}</h2>
-          <p className="room-window__number-of-users-in-room">{usersInRoom.length} users in the chat</p>
-        </div>
-        <button className="room-window__leave-chat-button" type="button">Leave chat</button>
-      </div>
+      <Header roomName={roomName} numberOfUsersInRoom={usersInRoom.length} leaveRoom={leaveRoom} />
       <UsersList usersInRoom={usersInRoom} />
       <div className="room-window__messages-container"></div>
       <form className="room-window__message-form">
@@ -45,6 +41,6 @@ export default function RoomWindow({ socket, roomName }) {
 }
 
 RoomWindow.propTypes = {
-  socket: PropTypes.object,
-  roomName: PropTypes.string
+  roomName: PropTypes.string,
+  leaveRoom: PropTypes.func
 };

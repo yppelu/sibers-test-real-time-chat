@@ -1,14 +1,32 @@
 import './welcomeWindow.css';
 
 import { PropTypes } from 'prop-types';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { SocketContext } from '../../helpers/socket.js';
 
 import CreateUserForm from './CreateUserForm.jsx';
 import ChooseRoomForm from './ChooseRoomForm.jsx';
 
-export default function WelcomeWindow({ socket, joinRoom }) {
+export default function WelcomeWindow({ joinRoom }) {
+  const socket = useContext(SocketContext);
   const [step, setStep] = useState(1);
   const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    const onGetUserById = (user) => {
+      if (user) {
+        setUsername(user.username);
+        setStep(2);
+      }
+    };
+
+    socket.on('getUserById', onGetUserById);
+
+    socket.emit('getUserById', socket.id);
+    return () => {
+      socket.off('getUserById', onGetUserById);
+    };
+  }, [socket]);
 
   function handleSubmitUsername(username) {
     socket.emit('createUser', socket.id, username);
@@ -24,8 +42,6 @@ export default function WelcomeWindow({ socket, joinRoom }) {
   );
 }
 
-
 WelcomeWindow.propTypes = {
-  socket: PropTypes.object,
   joinRoom: PropTypes.func
 };

@@ -25,7 +25,7 @@ module.exports = class User {
   }
 
   static getUsersInRoom(roomName) {
-    return this._users.filter(user => user.room = roomName);
+    return this._users.filter(user => user.room === roomName);
   }
 
   constructor(id, username, room = '') {
