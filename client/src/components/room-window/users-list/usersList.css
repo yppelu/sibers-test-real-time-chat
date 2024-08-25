@@ -1,0 +1,44 @@
+.room-window__users {
+  grid-area: users;
+
+  padding: 0 1rem;
+}
+
+.room-window__search-for-user-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 4rem;
+}
+
+.room-window__username-to-search-input {
+  appearance: none;
+  background-color: var(--dark-color-3);
+  border: none;
+  border-radius: 1rem;
+  outline: none;
+
+  padding: 0 1rem;
+  height: 55%;
+  width: 90%;
+}
+
+.room-window__list-of-users-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0.5rem 0.5rem;
+}
+
+.room-window__list-of-users-item:not(:last-of-type) {
+  border-bottom: 1px solid var(--dark-color-3);
+}
+
+.room-window__remove-user-button {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  color: var(--red-color);
+}

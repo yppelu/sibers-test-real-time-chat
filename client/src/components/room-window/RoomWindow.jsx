@@ -4,10 +4,10 @@ import { PropTypes } from 'prop-types';
 import { useContext, useEffect, useState } from 'react';
 import { SocketContext } from '../../helpers/socket.js';
 
-import UsersList from './UsersList.jsx';
-import Header from './Header.jsx';
-import Messages from './Messages.jsx';
-import MessageForm from './MessageForm.jsx';
+import UsersList from './users-list/UsersList.jsx';
+import Header from './header/Header.jsx';
+import Messages from './messages/Messages.jsx';
+import MessageForm from './message-form/MessageForm.jsx';
 
 export default function RoomWindow({ roomName, leaveRoom }) {
   const socket = useContext(SocketContext);

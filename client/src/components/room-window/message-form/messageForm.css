@@ -1,0 +1,39 @@
+.room-window__message-form {
+  border-left: 1px solid var(--dark-color-1);
+  border-right: 1px solid var(--dark-color-1);
+  grid-area: send-message;
+
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  padding-right: 1rem;
+}
+
+.room-window__message-input {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  outline: none;
+
+  padding-left: 1rem;
+  height: 100%;
+  width: 100%;
+}
+
+.room-window__send-message-button {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+
+  height: 65%;
+}
+
+.room-window__send-message-icon {
+  height: 100%;
+  fill: var(--accent-color-3);
+}
+
+.room-window__send-message-button:disabled .room-window__send-message-icon {
+  fill: var(--accent-color-2);
+}

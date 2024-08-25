@@ -1,7 +1,9 @@
+import './usersList.css';
+
 import { PropTypes } from 'prop-types';
 import { useContext, useState } from 'react';
 
-import { SocketContext } from '../../helpers/socket.js';
+import { SocketContext } from '../../../helpers/socket.js';
 
 export default function UsersList({ usersInRoom, isCurrentUserAdmin }) {
   const socket = useContext(SocketContext);

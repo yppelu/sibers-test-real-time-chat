@@ -1,7 +1,9 @@
+import './messageForm.css';
+
 import { PropTypes } from 'prop-types';
 import { useContext, useState } from 'react';
 
-import { SocketContext } from '../../helpers/socket.js';
+import { SocketContext } from '../../../helpers/socket.js';
 
 export default function MessageForm({ roomName }) {
   const socket = useContext(SocketContext);
